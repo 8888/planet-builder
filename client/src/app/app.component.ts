@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { PlanetService } from './planet.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'planet-builder';
+  public planets: Observable<{ name: string, iconUrl: string}[]>;
+
+  constructor(private planetService: PlanetService) {
+    this.planets = this.planetService.planets;
+  }
 }

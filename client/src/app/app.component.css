@@ -1,0 +1,15 @@
+.planet-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.name {
+  width: 150px;
+}
+
+.icon {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}

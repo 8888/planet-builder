@@ -19,4 +19,8 @@ export class AppComponent {
     );
     this.planets = this.planetService.planets;
   }
+
+  public logout(): void {
+    this.authService.logout();
+  }
 }

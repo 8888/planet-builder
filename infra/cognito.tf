@@ -4,10 +4,11 @@ module "cognito-user-pool" {
   user_pool_name = "planet-builder-pool"
   domain         = "planetbuilder"
   clients = [{
-    callback_urls                = ["https://www.planetbuilder.apphosting.link"]
-    name                         = "default"
-    supported_identity_providers = ["COGNITO"]
-    allowed_oauth_flows          = ["code"]
-    allowed_oauth_scopes         = ["openid", "email"]
+    callback_urls                        = ["https://www.planetbuilder.apphosting.link/"]
+    name                                 = "default"
+    supported_identity_providers         = ["COGNITO"]
+    allowed_oauth_flows                  = ["code"]
+    allowed_oauth_scopes                 = ["openid", "email"]
+    allowed_oauth_flows_user_pool_client = true
   }]
 }

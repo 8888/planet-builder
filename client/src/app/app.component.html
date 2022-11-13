@@ -1,4 +1,9 @@
-<div class="planet-container" *ngFor="let planet of planets | async">
-  <h1 class="name">{{ planet.name }}</h1>
-  <img class="icon" src="{{planet.iconUrl}}">
-</div>
+<ng-container *ngIf="userIsAuthenticated; else loading">
+  <div class="planet-container" *ngFor="let planet of planets | async">
+    <h1 class="name">{{ planet.name }}</h1>
+    <img class="icon" src="{{planet.iconUrl}}">
+  </div>
+</ng-container>
+<ng-template #loading>
+  <h1>Loading...</h1>
+</ng-template>

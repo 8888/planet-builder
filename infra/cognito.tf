@@ -4,7 +4,11 @@ module "cognito-user-pool" {
   user_pool_name = "planet-builder-pool"
   domain         = "planetbuilder"
   clients = [{
-    callback_urls                        = ["https://www.planetbuilder.apphosting.link/"]
+    callback_urls = [
+      "https://www.planetbuilder.apphosting.link/",
+      "http://localhost:4200/"
+    ]
+    default_redirect_uri                 = "https://www.planetbuilder.apphosting.link/"
     name                                 = "default"
     supported_identity_providers         = ["COGNITO"]
     allowed_oauth_flows                  = ["code"]

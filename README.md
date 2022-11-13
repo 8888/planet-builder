@@ -11,7 +11,8 @@ Terraform IaC for a full-stack web app
 - Codepipeline to deploy Lambda
 - Aurora PSQL RDS instance
 
-## Terraform modules used
+## Documentaiton for Terraform modules used
 - [s3-static-website](https://registry.terraform.io/modules/cn-terraform/s3-static-website/aws/latest)
+  - Only manual step was adding the bundle to S3 through the console. This should be automated by a pipeline later.
 - [cognito-user-pool](https://registry.terraform.io/modules/lgallard/cognito-user-pool/aws/latest)
   - [AWS Cognito API docs](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateUserPoolClient.html) were useful for determining the values for the fields

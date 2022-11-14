@@ -10,6 +10,7 @@ const cognitoAuthUrl = `${cognitoUrl}oauth2/token`;
 const userPoolClientId = '7o5fj2vu3r2qti8j4iq8b57em0';
 const userPoolClientRedirectUri = hostedAngularAppUrl;
 const loginUrl = `${cognitoUrl}login?client_id=${userPoolClientId}&response_type=code&scope=email+openid&redirect_uri=${encodeURIComponent(userPoolClientRedirectUri)}`;
+const apiUrl = 'https://3cdlo8gk90.execute-api.us-east-1.amazonaws.com';
 
 export const environment = {
   production: false,
@@ -17,6 +18,7 @@ export const environment = {
   userPoolClientId,
   userPoolClientRedirectUri,
   loginUrl,
+  apiUrl,
 };
 
 /*

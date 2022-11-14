@@ -18,7 +18,7 @@ id_token is the JWT returned from cognito when logging in
 - ✅ SPA hosted in S3 and served through CloudFront
 - ✅ Cognito user management
 - CodePipeline to build and deploy Angular app
-- Lambda with an API gateway
+- ✅ Lambda with an API gateway
 - Codepipeline to deploy Lambda
 - Aurora PSQL RDS instance
 

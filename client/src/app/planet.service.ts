@@ -1,23 +1,18 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlanetService {
-  private planetsData = [
-    { name: 'Earth', iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/cb/The_Blue_Marble_%28remastered%29.jpg' },
-    { name: 'Mars', iconUrl: 'https://cdn.mos.cms.futurecdn.net/rFxjRZcHNTZ8Jpw34pthnQ.jpg' },
-  ];
-  private planetsSubject: BehaviorSubject<{ name: string, iconUrl: string }[]>;
-  private planets$: Observable<{ name: string, iconUrl: string }[]>;
-
-  constructor() {
-    this.planetsSubject = new BehaviorSubject(this.planetsData);
-    this.planets$ = this.planetsSubject.asObservable();
-  }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   public get planets() {
-    return this.planets$;
+    const headers = { 'Authorization': this.authService.idToken };
+    const url = `${environment.apiUrl}/planets`
+
+    return this.http.get<{id: string, name: string, iconUrl: string}[]>(url, { headers });
   }
 }

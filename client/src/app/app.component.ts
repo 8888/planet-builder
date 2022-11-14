@@ -10,7 +10,7 @@ import { PlanetService } from './planet.service';
 })
 export class AppComponent {
   public userIsAuthenticated = false;
-  public planets: Observable<{ name: string, iconUrl: string}[]>;
+  public planets: Observable<{ id: string, name: string, iconUrl: string}[]>;
 
   constructor(private authService: AuthService, private planetService: PlanetService) {
     this.authService.validateAccess().then(

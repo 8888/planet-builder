@@ -19,3 +19,4 @@ Terraform IaC for a full-stack web app
   - [AWS Cognito API docs](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateUserPoolClient.html) were useful for determining the values for the fields
   - Manually provisioned a user through the cognito console
 - [lambda](https://registry.terraform.io/modules/terraform-aws-modules/lambda/aws/latest)
+- [apigateway-v2](https://registry.terraform.io/modules/terraform-aws-modules/apigateway-v2/aws/latest)

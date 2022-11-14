@@ -1,8 +1,13 @@
 Terraform IaC for a full-stack web app
 
-## [planetbuilder.apphosting.link](https://www.planetbuilder.apphosting.link/)
-## [Cognito sign-in URL - Prod](https://planetbuilder.auth.us-east-1.amazoncognito.com/login?client_id=7o5fj2vu3r2qti8j4iq8b57em0&response_type=code&scope=email+openid&redirect_uri=https%3A%2F%2Fwww.planetbuilder.apphosting.link%2F)
-## [Cognito sign-in URL - Local](https://planetbuilder.auth.us-east-1.amazoncognito.com/login?client_id=7o5fj2vu3r2qti8j4iq8b57em0&response_type=code&scope=email+openid&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2F)
+## URLs
+
+### [planetbuilder.apphosting.link](https://www.planetbuilder.apphosting.link/)
+### [Cognito sign-in URL - Prod](https://planetbuilder.auth.us-east-1.amazoncognito.com/login?client_id=7o5fj2vu3r2qti8j4iq8b57em0&response_type=code&scope=email+openid&redirect_uri=https%3A%2F%2Fwww.planetbuilder.apphosting.link%2F)
+### [Cognito sign-in URL - Local](https://planetbuilder.auth.us-east-1.amazoncognito.com/login?client_id=7o5fj2vu3r2qti8j4iq8b57em0&response_type=code&scope=email+openid&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2F)
+
+## API route
+GET https://3cdlo8gk90.execute-api.us-east-1.amazonaws.com/planets
 
 ## Functionality
 - ✅ SPA hosted in S3 and served through CloudFront

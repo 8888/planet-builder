@@ -31,7 +31,22 @@ module "apigateway-v2" {
 
   integrations = {
     "GET /planets" = {
-      lambda_arn = module.lambda.lambda_function_arn
+      lambda_arn         = module.lambda.lambda_function_arn
+      authorization_type = "JWT"
+      authorizer_id      = module.apigateway-v2.apigatewayv2_authorizer_id.cognito
+    }
+  }
+
+  authorizers = {
+    "cognito" = {
+      authorizer_type  = "JWT"
+      identity_sources = "$request.header.Authorization"
+      name             = "cognito"
+      # audience is the Cognito app Client ID
+      # This will be in the JWT under the aud key
+      # API gateway will confirm these match
+      audience = ["7o5fj2vu3r2qti8j4iq8b57em0"]
+      issuer   = "https://${module.cognito-user-pool.endpoint}"
     }
   }
 }

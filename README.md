@@ -8,6 +8,11 @@ Terraform IaC for a full-stack web app
 
 ## API route
 GET https://3cdlo8gk90.execute-api.us-east-1.amazonaws.com/planets
+Example:
+```
+curl -H "Authorization: id_token" https://3cdlo8gk90.execute-api.us-east-1.amazonaws.com/planets
+```
+id_token is the JWT returned from cognito when logging in
 
 ## Functionality
 - ✅ SPA hosted in S3 and served through CloudFront

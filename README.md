@@ -20,7 +20,7 @@ id_token is the JWT returned from cognito when logging in
 - CodePipeline to build and deploy Angular app
 - ✅ Lambda with an API gateway
 - Codepipeline to deploy Lambda
-- Aurora PSQL RDS instance
+- ✅ Aurora PSQL RDS instance
 
 ## Documentaiton for Terraform modules used
 - [s3-static-website](https://registry.terraform.io/modules/cn-terraform/s3-static-website/aws/latest)
@@ -31,4 +31,17 @@ id_token is the JWT returned from cognito when logging in
 - [lambda](https://registry.terraform.io/modules/terraform-aws-modules/lambda/aws/latest)
 - [apigateway-v2](https://registry.terraform.io/modules/terraform-aws-modules/apigateway-v2/aws/latest)
 - [rds-aurora](https://registry.terraform.io/modules/terraform-aws-modules/rds-aurora/aws/latest)
+  - Login credentials were randomly generated and are in the terraform state. I manually added these to secretsmanager by accessing query editor for the first time.
 - [vpc](https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest)
+
+
+## DB setup
+Using the simplest schema possible to just validate connectivity.
+```sql
+create table planet (
+  id serial PRIMARY KEY,
+  name text NOT NULL,
+  icon_url text NOT NULL
+);
+```
+Seeded some sample data

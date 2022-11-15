@@ -3,7 +3,7 @@ module "vpc" {
   version = "3.18.1"
   name    = "planet-builder-vpc"
 
-  azs = ["us-east-1a", "us-east-1b"]
+  azs              = ["us-east-1a", "us-east-1b"]
   cidr             = "10.0.0.0/16"
   database_subnets = ["10.0.7.0/24", "10.0.8.0/24"]
 }
@@ -13,8 +13,9 @@ module "rds-aurora" {
   version = "7.6.0"
   name    = "planet-builder-db"
 
-  vpc_id  = module.vpc.vpc_id
-  subnets = module.vpc.database_subnets
+  database_name = "planetbuilder"
+  vpc_id        = module.vpc.vpc_id
+  subnets       = module.vpc.database_subnets
 
   engine               = "aurora-postgresql"
   engine_mode          = "serverless"

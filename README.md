@@ -30,3 +30,5 @@ id_token is the JWT returned from cognito when logging in
   - Manually provisioned a user through the cognito console
 - [lambda](https://registry.terraform.io/modules/terraform-aws-modules/lambda/aws/latest)
 - [apigateway-v2](https://registry.terraform.io/modules/terraform-aws-modules/apigateway-v2/aws/latest)
+- [rds-aurora](https://registry.terraform.io/modules/terraform-aws-modules/rds-aurora/aws/latest)
+- [vpc](https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest)

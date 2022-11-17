@@ -20,4 +20,8 @@ module "rds-aurora" {
   engine               = "aurora-postgresql"
   engine_mode          = "serverless"
   enable_http_endpoint = true
+
+  scaling_configuration = {
+    min_capacity = 2
+  }
 }

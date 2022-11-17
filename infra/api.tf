@@ -5,14 +5,21 @@ module "lambda" {
   description   = "Planets for planet builder"
   handler       = "planets.main"
   runtime       = "nodejs16.x"
-  source_path   = "../api/planets.js"
+  source_path   = "../api/"
   publish       = true
+  timeout       = 5
 
   allowed_triggers = {
     AllowExecutionFromAPIGateway = {
       service    = "apigateway"
       source_arn = "${module.apigateway-v2.apigatewayv2_api_execution_arn}/*/*"
     }
+  }
+
+  environment_variables = {
+    CLUSTER_ARN = module.rds-aurora.cluster_arn
+    SECRET_ARN  = var.db_secret_arn
+    DB_NAME     = module.rds-aurora.cluster_database_name
   }
 }
 
@@ -42,11 +49,33 @@ module "apigateway-v2" {
       authorizer_type  = "JWT"
       identity_sources = "$request.header.Authorization"
       name             = "cognito"
-      # audience is the Cognito app Client ID
-      # This will be in the JWT under the aud key
-      # API gateway will confirm these match
-      audience = ["7o5fj2vu3r2qti8j4iq8b57em0"]
+
+      audience = module.cognito-user-pool.client_ids
       issuer   = "https://${module.cognito-user-pool.endpoint}"
     }
   }
+}
+
+data "aws_iam_policy_document" "query_db" {
+  statement {
+    actions   = ["rds-data:ExecuteStatement"]
+    resources = [module.rds-aurora.cluster_arn]
+    effect    = "Allow"
+  }
+  statement {
+    actions   = ["secretsmanager:GetSecretValue"]
+    resources = [var.db_secret_arn]
+    effect    = "Allow"
+  }
+}
+
+resource "aws_iam_policy" "query_db" {
+  name        = "execute-db-statements"
+  description = "Allow planet builder lambda to query RDS"
+  policy      = data.aws_iam_policy_document.query_db.json
+}
+
+resource "aws_iam_role_policy_attachment" "attachment" {
+  role       = module.lambda.lambda_role_name
+  policy_arn = aws_iam_policy.query_db.arn
 }

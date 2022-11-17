@@ -18,7 +18,7 @@ module "lambda" {
 
   environment_variables = {
     CLUSTER_ARN = module.rds-aurora.cluster_arn
-    SECRET_ARN  = var.db_secret_arn
+    SECRET_ARN  = module.secrets-manager.secret_arns.planet-builder-rds
     DB_NAME     = module.rds-aurora.cluster_database_name
   }
 }
@@ -64,7 +64,7 @@ data "aws_iam_policy_document" "query_db" {
   }
   statement {
     actions   = ["secretsmanager:GetSecretValue"]
-    resources = [var.db_secret_arn]
+    resources = [module.secrets-manager.secret_arns.planet-builder-rds]
     effect    = "Allow"
   }
 }

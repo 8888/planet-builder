@@ -2,7 +2,7 @@
   <button (click)="logout()">Logout</button>
   <div class="planet-container" *ngFor="let planet of planets | async">
     <h1 class="name">{{ planet.name }}</h1>
-    <img class="icon" src="{{planet.iconUrl}}">
+    <img class="icon" src="{{planet.icon_url}}">
   </div>
 </ng-container>
 <ng-template #loading>

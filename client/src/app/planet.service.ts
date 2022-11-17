@@ -13,6 +13,6 @@ export class PlanetService {
     const headers = { 'Authorization': this.authService.idToken };
     const url = `${environment.apiUrl}/planets`
 
-    return this.http.get<{id: string, name: string, iconUrl: string}[]>(url, { headers });
+    return this.http.get<{id: string, name: string, icon_url: string}[]>(url, { headers });
   }
 }

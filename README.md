@@ -34,7 +34,7 @@ id_token is the JWT returned from cognito when logging in
   - Login credentials were randomly generated and are in the terraform state. I manually added these to secretsmanager by accessing query editor for the first time.
   - The ARN for these are needed and was added to variables.tf manually
 - [vpc](https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest)
-
+- [secretsmanager_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret)
 
 ## DB setup
 Using the simplest schema possible to just validate connectivity.

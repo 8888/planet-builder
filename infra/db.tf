@@ -28,6 +28,8 @@ module "rds-aurora" {
   scaling_configuration = {
     min_capacity = 2
   }
+
+  final_snapshot_identifier_prefix = "final202211191653"
 }
 
 module "secrets-manager" {
@@ -35,7 +37,9 @@ module "secrets-manager" {
   version = "0.6.1"
 
   secrets = {
-    planet-builder-rds = {
+    // secrets take at least 7 days to delete and can't share names
+    // the date is appended to allow multiple creations and deletions
+    planet-builder-rds-20221119-1653 = {
       description = "RDS root credentials"
       secret_key_value = {
         dbInstanceIdentifier = module.rds-aurora.cluster_id

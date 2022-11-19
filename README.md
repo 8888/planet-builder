@@ -35,6 +35,43 @@ aws_secret_access_key=
     ```
     terraform init
     ```
+3) Apply the terraform configuration to build the services
+    ```
+    terraform apply
+    ```
+4) This is only needed if you are hosting the root app at a subdomain, like in the example of planetbuilder.apphosting.link. If you are using a normal second-level domain you can skip this step. You will need to do this while terraform is working, it may hang at validating the cert.
+    - In the AWS console, go to the Route53 hosted zone that was created for your subdomain, `planetbuilder.apphosting.link`
+    - Copy the value of the `NS` record that was created. It will be 4 nameservers
+    - Go to the Route53 hosted zone you aleady have for your domain, `apphosting.link`
+    - Create a new `NS` record with the values that you copied from the subdomain. You are now delegating that route to the subdomain.
+
+## Setting up the app
+1) Create the schema
+    - In the console, go to Secrets Manager and copy the ARN for the DB secret that was created
+    - Go to the RDS cluster and access the query editor
+    - Use the secret ARN and the database name in `db.tf` -> `rds-aurora.database_name`
+    ```sql
+    create table planet (
+      id serial PRIMARY KEY,
+      name text NOT NULL,
+      icon_url text NOT NULL
+    );
+    ```
+2) Seed some initial data
+    ```sql
+    insert into planet (name, icon_url) values
+	    ('Earth', 'https://cdn.mos.cms.futurecdn.net/yCPyoZDQBBcXikqxkeW2jJ-1200-80.jpg'),
+      ('Mars', 'https://cdn.mos.cms.futurecdn.net/kCbvedK262UGLXCLFeW5oS.jpg');
+    ```
+3) Create a Cognito user
+    - In the console go to the Cognito user pool that was created
+    - Create a user with a username and password
+4) Update the Angular environment variables to point to the new services. Both `client/src/environments/environment.ts` and `client/src/environments/environment.prod.ts`
+    - `userPoolClientId` -> Cognito App integration Client ID
+    - `apiUrl` -> API Gateway Invoke URL
+5) Deploy the Angular app manually
+    - in `client/` run `ng build`. This will create the app bundle in `client/dist/`
+    - $ `aws s3 sync ./dist/planet-builder s3://planetbuilder.apphosting.link`
 
 # Teardown
 To remove all infrastructure created:
@@ -51,16 +88,21 @@ Note: If you want to teardown and rebuild rapidly, you need to increment some va
 
 ## URLs
 - [planetbuilder.apphosting.link](https://www.planetbuilder.apphosting.link/)
-- [Cognito sign-in URL - Prod](https://planetbuilder.auth.us-east-1.amazoncognito.com/login?client_id=7o5fj2vu3r2qti8j4iq8b57em0&response_type=code&scope=email+openid&redirect_uri=https%3A%2F%2Fwww.planetbuilder.apphosting.link%2F)
-- [Cognito sign-in URL - Local](https://planetbuilder.auth.us-east-1.amazoncognito.com/login?client_id=7o5fj2vu3r2qti8j4iq8b57em0&response_type=code&scope=email+openid&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2F)
+- [Cognito sign-in URL - Prod](https://planetbuilder.auth.us-east-1.amazoncognito.com/login?client_id=fo65f9mfsft0phc90kuefck1p&response_type=code&scope=email+openid&redirect_uri=https%3A%2F%2Fwww.planetbuilder.apphosting.link%2F)
+- [Cognito sign-in URL - Local](https://planetbuilder.auth.us-east-1.amazoncognito.com/login?client_id=fo65f9mfsft0phc90kuefck1p&response_type=code&scope=email+openid&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2F)
 
 ## API route
-GET https://3cdlo8gk90.execute-api.us-east-1.amazonaws.com/planets  
-Example:
+GET https://dremalvl71.execute-api.us-east-1.amazonaws.com  
+### Curl
 ```
-curl -H "Authorization: id_token" https://3cdlo8gk90.execute-api.us-east-1.amazonaws.com/planets
+curl -H "Authorization: id_token" https://dremalvl71.execute-api.us-east-1.amazonaws.com
 ```
 id_token is the JWT returned from cognito when logging in
+### Lambda
+When triggering the lambda directly, use this as the Event JSON for the test event
+```json
+{"httpMethod": "GET"}
+```
 
 # Documentation resources
 
@@ -75,14 +117,3 @@ id_token is the JWT returned from cognito when logging in
 - [rds-aurora](https://registry.terraform.io/modules/terraform-aws-modules/rds-aurora/aws/latest)
 - [vpc](https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest)
 - [secretsmanager_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret)
-
-## DB setup
-Using the simplest schema possible to just validate connectivity.
-```sql
-create table planet (
-  id serial PRIMARY KEY,
-  name text NOT NULL,
-  icon_url text NOT NULL
-);
-```
-Seeded some sample data

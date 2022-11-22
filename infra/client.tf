@@ -9,7 +9,6 @@ module "s3-static-website" {
   name_prefix         = "planet-builder"
   website_domain_name = "planetbuilder.apphosting.link"
 
-  // This prevents the need to manually empty the website bucket before deleting
-  // Still need to empty the log bucket manually
   website_bucket_force_destroy = true
+  log_bucket_force_destroy     = true
 }

@@ -75,8 +75,9 @@ aws_secret_access_key=
 
 # Teardown
 To remove all infrastructure created:
-1) Manually remove all objects from the logging bucket
-2) Run `terraform destroy`  
+```
+terraform destroy
+```
 
 Note: If you want to teardown and rebuild rapidly, you need to increment some values. For example, secrets take 7 days to delete and the names must be unique.
 - `vpc.final_snapshot_identifier_prefix`

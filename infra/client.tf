@@ -5,7 +5,7 @@ module "s3-static-website" {
   }
 
   source              = "cn-terraform/s3-static-website/aws"
-  version             = "1.0.1"
+  version             = "1.0.2"
   name_prefix         = "planet-builder"
   website_domain_name = "planetbuilder.apphosting.link"
 

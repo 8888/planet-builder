@@ -80,10 +80,10 @@ terraform destroy
 ```
 
 Note: If you want to teardown and rebuild rapidly, you need to increment some values. For example, secrets take 7 days to delete and the names must be unique.
-- `vpc.final_snapshot_identifier_prefix`
-- `secrets-manager.secrets.planet-builder-rds`
-  - `lambda.environment_variables.SECRET_ARN`
-  - `aws_iam_policy_document.statement.resources`
+- `db.rds-aurora.final_snapshot_identifier_prefix`
+- `db.secrets-manager.secrets.planet-builder-rds`
+  - `api.lambda.environment_variables.SECRET_ARN`
+  - `api.aws_iam_policy_document.statement.resources`
 
 # Routes
 

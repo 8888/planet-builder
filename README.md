@@ -16,16 +16,16 @@ _note:_ Python is a dependecy of one of the terraform modules used for bundling.
 
 ## Configure AWS credentials
 Log in to AWS with your IAM profile and generate Access Keys.
-Save these to the `~/.aws/credentials` under a custom profile name by running the following command:
+Save these to the `~/.aws/credentials` file under a custom profile name by running the following command:
 ```
 aws configure --profile planet-builder
 ```
 The system will prompt you for the following information:
 ```
-AWS Access Key ID:
-AWS Secret Access Key:
-Default region name:
-Default output format:
+AWS Access Key ID: %YOUR_ACCESS_KEY_ID%
+AWS Secret Access Key: %YOUR_ACCESS_KEY%
+Default region name: us-east-1
+Default output format: json
 ```
 
 ## Building the infrastructure

@@ -15,10 +15,17 @@ Terraform code to establish the basic services needed for a full stack, cloud-ho
 _note:_ Python is a dependecy of one of the terraform modules used for bundling.
 
 ## Configure AWS credentials
-Create `~/.aws/credentials` add the credentials for your AWS account:
+Log in to AWS with your IAM profile and generate Access Keys.
+Save these to the `~/.aws/credentials` under a custom profile name by running the following command:
 ```
-aws_access_key_id=
-aws_secret_access_key=
+aws configure --profile planet-builder
+```
+The system will prompt you for the following information:
+```
+AWS Access Key ID:
+AWS Secret Access Key:
+Default region name:
+Default output format:
 ```
 
 ## Building the infrastructure
